@@ -109,25 +109,28 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setViewElements() {
         val textAction: TextView = findViewById(R.id.text_action)
-
+        var img: Int = 0
+        var text: Int = 0
         when (lemonadeState) {
             SELECT -> {
-                textAction.setText(R.string.lemon_select)
-                lemonImage!!.setImageResource(R.drawable.lemon_tree)
+                text = R.string.lemon_select
+                img = R.drawable.lemon_tree
             }
             SQUEEZE -> {
-                textAction.setText(R.string.lemon_squeeze)
-                lemonImage!!.setImageResource(R.drawable.lemon_squeeze)
+                text = R.string.lemon_squeeze
+                img = R.drawable.lemon_squeeze
             }
             DRINK -> {
-                textAction.setText(R.string.lemon_drink)
-                lemonImage!!.setImageResource(R.drawable.lemon_drink)
+                text = R.string.lemon_drink
+                img = R.drawable.lemon_drink
             }
             RESTART -> {
-                textAction.setText(R.string.lemon_empty_glass)
-                lemonImage!!.setImageResource(R.drawable.lemon_restart)
+                text = R.string.lemon_empty_glass
+                img = R.drawable.lemon_restart
             }
         }
+        textAction.setText(text)
+        lemonImage!!.setImageResource(img)
     }
 
     /**
