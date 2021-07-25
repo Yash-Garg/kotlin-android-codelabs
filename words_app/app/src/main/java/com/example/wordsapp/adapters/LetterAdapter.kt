@@ -43,12 +43,18 @@ class LetterAdapter : RecyclerView.Adapter<LetterAdapter.LetterViewHolder>() {
 
     /** Replaces the content of an existing view with new data */
     override fun onBindViewHolder(holder: LetterViewHolder, position: Int) {
+        // Get the item at current position
         val item = list[position]
+
+        // Replaces the text of the button with the item name
         holder.button.text = item.toString()
 
+        // Opens up DetailActivity using Explicit Intent
         holder.button.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, DetailActivity::class.java)
+
+            // Basically passes an argument to the Intent and the Button Item Name
             intent.putExtra(DetailActivity.LETTER, holder.button.text.toString())
             context.startActivity(intent)
         }
