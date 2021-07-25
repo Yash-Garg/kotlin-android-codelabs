@@ -16,6 +16,8 @@
 package com.example.wordsapp
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +35,7 @@ class WordAdapter(private val letterId: String, context: Context) :
         val words = context.resources.getStringArray(R.array.words).toList()
 
         filteredWords =
-            words.filter { it.startsWith(letterId, ignoreCase = true) }.shuffled().take(5).sorted()
+            words.filter { it.startsWith(letterId, ignoreCase = true) }.shuffled().sorted()
     }
 
     class WordViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -51,10 +53,13 @@ class WordAdapter(private val letterId: String, context: Context) :
     /** Replaces the content of an existing view with new data */
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val item = filteredWords[position]
-        // Needed to call startActivity
-        holder.view.context
-
-        // Set the text of the WordViewHolder
+        val context = holder.view.context
         holder.button.text = item
+
+        holder.button.setOnClickListener {
+            val queryUrl: Uri = Uri.parse("${DetailActivity.SEARCH_PREFIX}${item}")
+            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
+            context.startActivity(intent)
+        }
     }
 }
