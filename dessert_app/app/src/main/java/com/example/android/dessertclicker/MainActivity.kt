@@ -19,12 +19,12 @@ const val KEY_DESSERT_SOLD = "dessert_sold_key"
 const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
-
     private var revenue = 0
     private var dessertsSold = 0
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
+    // Initial value of dessert
     private var currentDessert = allDesserts[0]
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +34,12 @@ class MainActivity : AppCompatActivity() {
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        binding.dessertButton.setOnClickListener {
-            onDessertClicked()
-        }
+        binding.dessertButton.setOnClickListener { onDessertClicked() }
 
         // If there is a savedInstanceState bundle, then you're "restarting" the activity
         // If there isn't a bundle, then it's a "fresh" start
         if (savedInstanceState != null) {
+            Log.d(TAG, "Restored State")
             revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
             dessertsSold = savedInstanceState.getInt(KEY_DESSERT_SOLD, 0)
             // Show the correct dessert
@@ -59,7 +58,6 @@ class MainActivity : AppCompatActivity() {
      * Updates the score when the dessert is clicked. Possibly shows a new dessert.
      */
     private fun onDessertClicked() {
-
         // Update the score
         revenue += currentDessert.price
         dessertsSold++
@@ -103,7 +101,6 @@ class MainActivity : AppCompatActivity() {
         outState.putInt(KEY_REVENUE, revenue)
         outState.putInt(KEY_DESSERT_SOLD, dessertsSold)
     }
-
 
     /**
      * Menu methods
