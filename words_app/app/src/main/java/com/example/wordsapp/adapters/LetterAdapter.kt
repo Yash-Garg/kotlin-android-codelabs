@@ -21,9 +21,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import com.example.wordsapp.DetailActivity
 import com.example.wordsapp.MainActivity
 import com.example.wordsapp.R
+import com.example.wordsapp.WordListFragment
 
 /** Adapter for the [RecyclerView] in [MainActivity]. */
 class LetterAdapter : RecyclerView.Adapter<LetterAdapter.LetterViewHolder>() {
@@ -55,10 +55,10 @@ class LetterAdapter : RecyclerView.Adapter<LetterAdapter.LetterViewHolder>() {
         // Opens up DetailActivity using Explicit Intent
         holder.button.setOnClickListener {
             val context = holder.itemView.context
-            val intent = Intent(context, DetailActivity::class.java)
+            val intent = Intent(context, WordListFragment::class.java)
 
             // Basically passes an argument to the Intent and the Button Item Name
-            intent.putExtra(DetailActivity.LETTER, holder.button.text.toString())
+            intent.putExtra(WordListFragment.LETTER, holder.button.text.toString())
             context.startActivity(intent)
         }
     }
