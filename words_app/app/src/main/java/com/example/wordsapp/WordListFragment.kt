@@ -15,7 +15,15 @@ import com.example.wordsapp.databinding.FragmentWordListBinding
  */
 class WordListFragment : Fragment() {
     private var _binding: FragmentWordListBinding? = null
-    private var binding = _binding!!
+    private val binding get() = _binding!!
+    private lateinit var letterID: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            letterID = it.getString(LETTER).toString()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,11 +35,10 @@ class WordListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val letterId = activity?.intent?.extras?.getString(LETTER).toString()
         val recyclerView = binding.recyclerView
 
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
-        recyclerView.adapter = WordAdapter(letterId, this.requireContext())
+        recyclerView.adapter = WordAdapter(letterID, this.requireContext())
         recyclerView.addItemDecoration(
             DividerItemDecoration(
                 this.requireContext(),
@@ -39,7 +46,7 @@ class WordListFragment : Fragment() {
             )
         )
 
-        activity?.title = getString(R.string.detail_prefix) + " " + letterId
+        activity?.title = getString(R.string.detail_prefix) + " " + letterID
     }
 
     override fun onDestroyView() {
